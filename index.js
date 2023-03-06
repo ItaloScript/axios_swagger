@@ -61,14 +61,18 @@ async function init() {
 async function generateSchemasAction(data) {
     const declaredSchemas = await generateSchemas(data.components.schemas)
     writeFileSync(`${dataConfig.outputPath}/schemas.d.ts`, declaredSchemas)
-    const declaredSchemasFormmated = execSync(`yarn tsfmt ${dataConfig.outputPath}/schemas.d.ts`).toString().split('\n').slice(1).join('\n')
+    const declaredSchemasFormmated = 'declare '+execSync(`yarn tsfmt ${dataConfig.outputPath}/schemas.d.ts`).toString()
+    .split('declare ').slice(1).join('\n')
+    .split('Done')[0]
     writeFileSync(`${dataConfig.outputPath}/schemas.d.ts`, declaredSchemasFormmated)
 }
 
 async function generateServicesAction(data) {
     const stringFile = await generateServices(data)
     writeFileSync(`${dataConfig.outputPath}/services.ts`, stringFile)
-    const stringFileFormmated = execSync(`yarn tsfmt ${dataConfig.outputPath}/services.ts`).toString().split('\n').slice(1).join('\n')
+    const stringFileFormmated = "import " +execSync(`yarn tsfmt ${dataConfig.outputPath}/services.ts`).toString()
+    .split('import').slice(1).join('\n')
+    .split('Done')[0]
     writeFileSync(`${dataConfig.outputPath}/services.ts`, stringFileFormmated)
 }
 

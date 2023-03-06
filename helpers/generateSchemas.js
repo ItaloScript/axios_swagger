@@ -10,7 +10,14 @@ export default function generateSchemas(schemas){
             return `
             export interface ${schema.title} {
                 ${Object.keys(schema.properties).map(key => {
-                    return `${key}: ${schema.properties[key].type}\ `
+                    let type = schema.properties[key].type
+                    if(type==='array'){
+                        type = schema.properties[key].items.type ? `${schema.properties[key].items.type}[]` : '[]'
+                    }
+                    if(!type){
+                        type = 'any'
+                    }
+                    return `${key}: ${type}\ `
                 }).join('\n')}
             }
             `
