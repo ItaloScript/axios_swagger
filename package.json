@@ -1,15 +1,15 @@
 {
-  "name": "swagger-api-generator",
-  "version": "1.0.0",
+  "name": "axios_swagger",
+  "version": "1.0.8",
   "main": "index.js",
-  "license": "MIT",
-  
+  "bin": "./index.js",
+  "type": "module",
   "scripts": {
-    "start": "yarn ts-node index.ts"
+    "start": "node index.js"
   },
   "dependencies": {
     "axios": "^1.3.4",
-    "esformatter": "^0.11.3",
+    "axios_swagger": "1.0.8",
     "fs": "^0.0.1-security",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
@@ -17,5 +17,25 @@
   },
   "devDependencies": {
     "@types/node": "^18.14.6"
-  }
+  },
+  "description": "Uma biblioteca que transforma rotas do swagger em requests typescript para front-end",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ItaloScript/swagger_axios.git"
+  },
+  "keywords": [
+    "swagger_to_typescript",
+    "swagger_to_front",
+    "front-end",
+    "swagger",
+    "services",
+    "swagger",
+    "to",
+    "requests"
+  ],
+  "author": "italo <italoscript@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/ItaloScript/swagger_axios/issues"
+  },
+  "homepage": "https://github.com/ItaloScript/swagger_axios#readme"
 }

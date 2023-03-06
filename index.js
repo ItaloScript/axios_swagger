@@ -1,9 +1,10 @@
+#!/usr/bin/env node
+
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
-var esformatter = require('esformatter');
 import axios from 'axios'
-import generateSchemas from "./helpers/generateSchemas"
+import generateSchemas from "./helpers/generateSchemas.js"
 import { exec, execSync } from "child_process";
-import generateServices from "./helpers/generateServices";
+import generateServices from "./helpers/generateServices.js";
 
 if (!existsSync('services')) {
     mkdirSync('services')
@@ -31,7 +32,16 @@ async function init() {
 
     console.log('Gerando schemas...')
     
-    const data = (await axios.get(dataConfig.swaggerUrl)).data
+    let data = await axios.get(dataConfig.swaggerUrl).catch(err => {
+        return false
+    })
+
+    if (!data) {
+        console.log('Falha ao se conectar a url, verifique se o swagger está rodando \nexemplo: http://localhost:3000/api-json \nurl_atual: ' + dataConfig.swaggerUrl + '\n\n')
+        return
+    }
+
+    data = data.data
 
     await generateSchemasAction(data)
 
@@ -43,20 +53,18 @@ async function init() {
 
 }
 
-async function generateSchemasAction(data: any) {
-    const declaredSchemas = await generateSchemas(data.components.schemas) as string
+async function generateSchemasAction(data) {
+    const declaredSchemas = await generateSchemas(data.components.schemas)
     writeFileSync(`${dataConfig.outputPath}/schemas.d.ts`, declaredSchemas)
     const declaredSchemasFormmated = execSync(`yarn tsfmt ${dataConfig.outputPath}/schemas.d.ts`).toString().split('\n').slice(1).join('\n')
     writeFileSync(`${dataConfig.outputPath}/schemas.d.ts`, declaredSchemasFormmated)
 }
 
-async function generateServicesAction(data: any) {
+async function generateServicesAction(data) {
     const stringFile = await generateServices(data)
     writeFileSync(`${dataConfig.outputPath}/services.ts`, stringFile)
     const stringFileFormmated = execSync(`yarn tsfmt ${dataConfig.outputPath}/services.ts`).toString().split('\n').slice(1).join('\n')
     writeFileSync(`${dataConfig.outputPath}/services.ts`, stringFileFormmated)
 }
-
-
 
 init()
