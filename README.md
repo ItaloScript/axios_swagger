@@ -1,6 +1,6 @@
 # Axios Swagger
 
-SwaggerAxios is a javascript lib that transform swagger schemas in to axios http requests
+axios_swagger is a javascript lib that transform swagger schemas in to axios http requests
 
 ## Get Started
 
