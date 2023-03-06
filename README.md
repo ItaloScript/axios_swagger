@@ -22,6 +22,15 @@ SwaggerAxios is a javascript lib that transform swagger schemas in to axios http
 }
 ```
 
-## RUN
+## Run
 
-| yarn axios_swagger
+```
+yarn axios_swagger
+```
+
+## GeneratedFiles
+```
+base.ts
+schemas.d.ts
+services.ts
+```
