@@ -15,29 +15,34 @@ let dataConfig = {
     "outputPath": "./services"
 }
 
-console.log('Gerando arquivos de configurações...')
+console.log('Starting axios-swagger')
 
-if (existsSync("axios_swagger.json")) {
-    dataConfig = JSON.parse(readFileSync("axios_swagger.json").toString())
-} else {
-    writeFileSync("axios_swagger.json", JSON.stringify({
-        "swaggerUrl": "http://localhost:3000/api-json",
-        "outputPath": "./services"
-    }, null, 4))
-}
-
-mkdirSync(dataConfig.outputPath, { recursive: true })
 
 async function init() {
 
-    console.log('Gerando schemas...')
+    if (existsSync("axios_swagger.json")) {
+        dataConfig = JSON.parse(readFileSync("axios_swagger.json").toString())
+    } else {
+        console.log('You do not have a axios_swagger.json file, creating one...')
+        console.log('Please configure the file with the correct data, then run the command again')
+        writeFileSync("axios_swagger.json", JSON.stringify({
+            "swaggerUrl": "http://localhost:3000/api-json",
+            "outputPath": "./services"
+        }, null, 4))
+        return
+    }
+    
+    mkdirSync(dataConfig.outputPath, { recursive: true })
+
+    
+    console.log('Generating schemas...')
     
     let data = await axios.get(dataConfig.swaggerUrl).catch(err => {
         return false
     })
 
     if (!data) {
-        console.log('Falha ao se conectar a url, verifique se o swagger está rodando \nexemplo: http://localhost:3000/api-json \nurl_atual: ' + dataConfig.swaggerUrl + '\n\n')
+        console.log('Fail to connect to url, are your url correct?\nexemple: http://localhost:3000/api-json \nactual_url: ' + dataConfig.swaggerUrl + '\n\n')
         return
     }
 
@@ -45,10 +50,10 @@ async function init() {
 
     await generateSchemasAction(data)
 
-    console.log('Gerando services...')
+    console.log('Generating services...')
     await generateServicesAction(data)
 
-    console.log('Serviços criados com sucesso')
+    console.log('Services generated successfully!')
 
 
 }
