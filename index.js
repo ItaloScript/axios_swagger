@@ -17,13 +17,13 @@ let dataConfig = {
 
 console.log('Gerando arquivos de configurações...')
 
-if (existsSync("typeswagger.json")) {
-    dataConfig = JSON.parse(readFileSync("typeswagger.json").toString())
+if (existsSync("axios_swagger.json")) {
+    dataConfig = JSON.parse(readFileSync("axios_swagger.json").toString())
 } else {
-    writeFileSync("typeswagger.json", JSON.stringify({
+    writeFileSync("axios_swagger.json", JSON.stringify({
         "swaggerUrl": "http://localhost:3000/api-json",
         "outputPath": "./services"
-    }))
+    }, null, 4))
 }
 
 mkdirSync(dataConfig.outputPath, { recursive: true })

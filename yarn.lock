@@ -81,24 +81,12 @@ axios@^1.3.4:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios_swagger@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/axios_swagger/-/axios_swagger-1.0.8.tgz#b11b1158b38ccaca40f1350b2e81c5c49bc18fa3"
-  integrity sha512-UbHj2PDSXvkraDMjjVjlg1whnzP4P6vsZjzV9iDuWc9UNvqBb89fOEJgpOWktEv+PowZZpV/ZS4z9qo9uMEFIA==
+axios_swagger@1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/axios_swagger/-/axios_swagger-1.0.10.tgz#8588a4526236575422e6297ed636292341e08d17"
+  integrity sha512-FLMRWfUQg3+QLY03vPdMeFK8hDKENk+B4n41FGfFQrxFnol/Nu8z6+n9mJ7MSeUA40HU07VBUpYi/0+MBb7h8g==
   dependencies:
     axios "^1.3.4"
-    fs "^0.0.1-security"
-    ts-node "^10.9.1"
-    typescript "^4.9.5"
-    typescript-formatter "^7.2.2"
-
-axios_swagger@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/axios_swagger/-/axios_swagger-1.0.9.tgz#0e2db6de043a6542ac5cacc3cd08bac863909990"
-  integrity sha512-SLePCFH0DGfc2SqhhCEyewyNtYTWc/6K3Q5VzFwBbwQldU6C89H3RkSQn63ITO9lLt0BuPczkswn+fZH7G/DIA==
-  dependencies:
-    axios "^1.3.4"
-    axios_swagger "1.0.8"
     fs "^0.0.1-security"
     ts-node "^10.9.1"
     typescript "^4.9.5"
